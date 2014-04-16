@@ -57,6 +57,39 @@ module Dscli
         end
     end
 
+    def push_list(page)
+      response = @datasift.push.get(page)
+      response[:data]
+    end
+
+    def push_get(id)
+      response = @datasift.push.get_by_subscription(id)
+      return response
+    end
+
+    def push_stop(id)
+      response = @datasift.push.stop(id)
+      puts response
+    end
+
+    def push_delete(id)
+      response = @datasift.push.delete(id)
+      return response
+    end
+
+    def logs(id)
+
+      if id.nil?
+        response = @datasift.push.logs
+      else
+        response = @datasift.push.logs_for(id)
+      end
+    
+      return response[:data]
+
+
+    end
+
   end
 
 end
