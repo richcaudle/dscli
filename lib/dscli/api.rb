@@ -32,6 +32,11 @@ module Dscli
       dpu = response[:data]
     end
 
+    def balance
+      response = @datasift.balance
+      return response[:data]
+    end
+
     def stream(hash)
       on_delete  = lambda { |stream, m| puts m }
       on_error   = lambda { |stream, e| puts 'A serious error has occurred: ' + e.message.to_s }
@@ -57,6 +62,10 @@ module Dscli
         end
     end
 
+    #######################################################
+    #     PUSH
+    #######################################################  
+
     def push_list(page)
       response = @datasift.push.get(page)
       response[:data]
@@ -77,7 +86,7 @@ module Dscli
       return response
     end
 
-    def logs(id)
+    def push_logs(id)
 
       if id.nil?
         response = @datasift.push.logs
@@ -87,7 +96,57 @@ module Dscli
     
       return response[:data]
 
+    end
 
+    #######################################################
+    #     HISTORICS
+    #######################################################  
+
+    def historics_list(page)
+      response = @datasift.historics.get(20,page)
+      response[:data]
+    end
+
+    def historics_get(id)
+      return @datasift.historics.get_by_id(id)
+    end
+
+    def historics_stop(id)
+      return @datasift.historics.stop(id)
+    end
+
+    def historics_delete(id)
+      return @datasift.historics.delete(id)
+    end
+
+    #######################################################
+    #     MANAGED SOURCES
+    #######################################################  
+
+    def source_list(page)
+      response = @datasift.managed_source.get(nil,nil,page,20)
+      response[:data]
+    end
+
+    def source_get(id)
+      return @datasift.managed_source.get(id)
+    end
+
+    def source_start(id)
+      return @datasift.managed_source.start(id)
+    end
+
+    def source_stop(id)
+      return @datasift.managed_source.stop(id)
+    end
+
+    def source_delete(id)
+      return @datasift.managed_source.delete(id)
+    end
+
+    def source_log(id)
+      response = @datasift.managed_source.log(id,1,20)
+      response[:data]
     end
 
   end

@@ -53,6 +53,7 @@ class Push < Thor
       if response[:http][:status] == 204
         puts "Push subscription #{id} deleted successfully"
       else
+        # TODO: How do we handle a different code?
         response
       end
     rescue ApiResourceNotFoundError => e
@@ -66,7 +67,7 @@ class Push < Thor
     api = Dscli::API.new
 
     begin
-      results = api.logs(id)
+      results = api.push_logs(id)
 
       puts "\nMessage count: #{results[:count]}\n\n"
       puts ' Time                     | Subscription ID                  | Message                                          '

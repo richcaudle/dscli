@@ -37,9 +37,17 @@ class CLI < Thor
     api.stream(hash)
   end
 
+  desc 'balance', 'Gets your current plan and balance'
+  def balance
+    api = Dscli::API.new
+    puts api.balance
+  end
+
   #######################################################
   #     Second-level commands 
   #######################################################  
-  register(Push, 'push', 'push <command>', 'Description.')
+  register(Push, 'push', 'push <command>', 'Run commands relating to push subscriptions')
+  register(Historics, 'historics', 'historics <command>', 'Run commands relating to historics')
+  register(Source, 'source', 'source <command>', 'Run commands relating to managed sources')
 
 end
