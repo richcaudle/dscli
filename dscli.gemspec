@@ -25,5 +25,6 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency "yajl-ruby"
   spec.add_runtime_dependency "datasift", "~>3.0.0.beta2"
   spec.add_runtime_dependency "interact"
+  spec.add_runtime_dependency "multi_json"
 
 end
