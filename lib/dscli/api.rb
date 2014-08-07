@@ -42,7 +42,7 @@ module Dscli
       on_error   = lambda { |stream, e| puts 'A serious error has occurred: ' + e.message.to_s }
       on_message = lambda { |message, stream, hash| puts Yajl::Encoder.encode(message) }
       on_connect = lambda { |stream| stream.subscribe(hash, on_message) }
-      on_close   = lambda { |stream| puts 'closed' }
+      on_close   = lambda { |stream, message| puts "Closed #{stream}: #{message}" }
 
       on_datasift_message = lambda do |stream, message, hash|
         puts "DataSift Message #{hash} ==> #{message}"
