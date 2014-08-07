@@ -8,7 +8,7 @@ module Dscli
     def initialize
       storage = Dscli::Storage.new
       config = storage.get_auth
-      @config = {:username => config[:auth][:username], :api_key => config[:auth][:api_key], :enable_ssl => false}
+      @config = {:username => config[:auth][:username], :api_key => config[:auth][:api_key], :enable_ssl => true}
       @datasift = DataSift::Client.new(@config)
     end
 
@@ -64,7 +64,7 @@ module Dscli
 
     #######################################################
     #     PUSH
-    #######################################################  
+    #######################################################
 
     def push_list(page)
       response = @datasift.push.get(page)
@@ -86,21 +86,21 @@ module Dscli
       return response
     end
 
-    def push_logs(id)
+    def push_log(id)
 
       if id.nil?
-        response = @datasift.push.logs
+        response = @datasift.push.log
       else
-        response = @datasift.push.logs_for(id)
+        response = @datasift.push.log_for(id)
       end
-    
+
       return response[:data]
 
     end
 
     #######################################################
     #     HISTORICS
-    #######################################################  
+    #######################################################
 
     def historics_list(page)
       response = @datasift.historics.get(20,page)
@@ -121,7 +121,7 @@ module Dscli
 
     #######################################################
     #     MANAGED SOURCES
-    #######################################################  
+    #######################################################
 
     def source_list(page)
       response = @datasift.managed_source.get(nil,nil,page,20)
