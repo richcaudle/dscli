@@ -1,5 +1,4 @@
 require 'datasift'
-require 'yajl'
 
 module Dscli
   class API
@@ -40,7 +39,7 @@ module Dscli
     def stream(hash)
       on_delete  = lambda { |stream, m| puts m }
       on_error   = lambda { |stream, e| puts 'A serious error has occurred: ' + e.message.to_s }
-      on_message = lambda { |message, stream, hash| puts Yajl::Encoder.encode(message) }
+      on_message = lambda { |message, stream, hash| puts JSON.pretty_generate(message) }
       on_connect = lambda { |stream| stream.subscribe(hash, on_message) }
       on_close   = lambda { |stream, message| puts "Closed #{stream}: #{message}" }
 

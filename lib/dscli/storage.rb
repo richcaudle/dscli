@@ -1,5 +1,3 @@
-require 'yajl'
-
 module Dscli
   class Storage
 
@@ -9,15 +7,6 @@ module Dscli
         @configfile.close
       else
         @configfile = File.expand_path('~') + '/.datasiftcli'
-      end
-    end
-
-    def set_auth(auth)
-      config = File.read(@configfile)
-      if config == ""
-        File.open(@configfile, "w") { |f|
-          f.write(Yajl::Encoder.encode(auth) + "\n")
-        }
       end
     end
 

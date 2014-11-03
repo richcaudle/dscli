@@ -22,13 +22,13 @@ class CLI < Thor
   desc 'usage [period]', 'Find your stream and license fee usage'
   def usage(period = 'day')
     api = Dscli::API.new
-    puts Yajl::Encoder.encode(api.usage(period), :pretty => true)
+    puts JSON.pretty_generate(api.usage(period))
   end
 
   desc 'dpu (hash)', 'Find the DPU cost of a given stream hash'
   def dpu(hash)
     api = Dscli::API.new
-    puts Yajl::Encoder.encode(api.dpu(hash), :pretty => true)
+    puts JSON.pretty_generate(api.dpu(hash))
   end
 
   desc 'stream (hash)', 'Stream interactions from a DataSift stream to the command line'
